@@ -101,15 +101,34 @@ moment.locale("zh-cn");
 export default class extends wepy.app { 
 	config = {
 		pages: [
-			'pages/index',
+			'pages/index', 
+			'pages/addedit',
+			'pages/my', 
 			'pages/webview'
 		],
 		window: {
 			backgroundTextStyle: 'dark',
 			navigationBarBackgroundColor: '#000000',
-			navigationBarTitleText: '',//租赁商城
+			navigationBarTitleText: '',
 			navigationBarTextStyle: 'white'
 		},
+		"tabBar": {
+			"color": "#a2a2a2",  
+			"selectedColor": "#f08200", 
+			"backgroundColor": "#ffffff",
+			"borderStyle": "black",
+			"list": [{
+				"pagePath": "pages/index",
+				"text": "首页",
+				"iconPath":"static/tabBar-icon01.png",
+				"selectedIconPath":"static/tabBar-icon01-2.png"
+			}, {
+				"pagePath": "pages/my",
+				"text": "个人中心",
+				"iconPath":"static/tabBar-icon02.png",
+				"selectedIconPath":"static/tabBar-icon02-2.png"
+			}] 
+		}
 	}
 
 	globalData = {

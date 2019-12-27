@@ -1,0 +1,60 @@
+<template>
+    <view class="addedit" index="addedit">
+        <view class="addedit-content">
+            <!-- 选择图片 -->
+            <view class="select-image ">
+                <view></view>
+            </view>
+            <!-- 标题 -->
+            <view></view>
+            <!-- 内容 -->
+            <view></view>
+            <!-- 话题 -->
+            <view></view>
+            <!-- 定位 -->
+            <view></view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Api from '../services/api/index';
+import appConfig from '../common/app_config';
+import appData from '../common/appData';
+
+import globalMixin from '../mixins/index';
+import globalMixinShare from '../mixins/share';
+import * as common from '../common/common';
+// 时间处理中心
+// 组件
+import getuserinfo from '../services/getuserinfo';
+import head from '../components/head';
+
+export default class Addedit extends wepy.page {
+    data = {};
+
+    config = {};
+ 
+    components = {
+        head
+    };
+
+    mixins = [globalMixin, globalMixinShare];
+
+    methods = {};
+
+    onLoad() {}
+    onShow() {}
+}
+</script>
+
+<style lang="less">
+#addedit{
+    .addedit-content{
+
+    }
+}
+</style>
+
+

@@ -1,0 +1,40 @@
+<template>
+    <view class="my" index="my"></view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Api from '../services/api/index';
+import appConfig from '../common/app_config';
+import appData from '../common/appData';
+
+import globalMixin from '../mixins/index';
+import globalMixinShare from '../mixins/share';
+import * as common from '../common/common';
+// 时间处理中心
+// 组件
+import getuserinfo from '../services/getuserinfo';
+import head from '../components/head';
+
+export default class Index extends wepy.page {
+    data = {};
+
+    config = {};
+ 
+    components = {
+        head
+    };
+
+    mixins = [globalMixin, globalMixinShare];
+
+    methods = {};
+
+    onLoad() {}
+    onShow() {}
+}
+</script>
+
+<style lang="less">
+</style>
+
+

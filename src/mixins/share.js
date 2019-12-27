@@ -11,8 +11,8 @@ export default class globalMixinShare extends wepy.mixin {
             }else{
                 obj = {
                     imageUrl: appConfig.shareImageurl||'https://qh.eintone.com/minitest/static/share.jpg',
-                    path: appConfig.sharePath||'/pages/index',
-                    title:appConfig.shareTitle||'加入我们',
+                    path: appConfig.sharePath||'/pages/index?scene='+appConfig.opt_scene||'',
+                    title:appConfig.shareTitle||'宝宝的学习能力怎么样？测一测，家长一目了然！',
                 };
             }
             return obj

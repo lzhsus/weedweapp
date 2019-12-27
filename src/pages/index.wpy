@@ -1,8 +1,8 @@
 <template>
 	<view class="content" id="index">
 		<view class="page-content">
-			<block wx:for="{{msgList}}" wx:key="">
-				<view class="user-module">
+			<block wx:for="{{msgList}}" wx:key>
+				<view class="user-module"> 
 					<view class="user-module-top">
 						<view class="user-module-top-info">
 							<view class="headimgurl">
@@ -13,10 +13,10 @@
 								<view>{{item.issue_time}}</view>
 							</view>
 						</view>
-						<view class="user-module-top-more"></view>
+						<view class="user-module-top-more" @tap="userMore({{item}})"></view>
 					</view>
 					<view class="user-module-images">
-						<swiper indicator-dots="true" 
+						<swiper indicator-dots="true"  
 							indicator-color="rgba(0, 0, 0, .3)" 
 							indicator-active-color="rgba(180, 180, 180, 0.8)">
 							 <block wx:for="{{item.bannerImg}}" wx:key wx:for-item="itemImgs">
@@ -35,45 +35,60 @@
 								<text>等{{item.indicate.likes.length}}次赞</text>
 							</veiw>
 							<view class="icon-box">
-								<view class="like-icon">
-									<image wx:if="{{item.indicate.like}}" src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/lick-icon-active.png?OSSAccessKeyId=LTAI4FgBUrXGJxQu8ytjBGxo&Expires=1584017743&Signature=3K904lCOIQLbFx2Bvrvm5D%2Funlw%3D" />
-									<image wx:else src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/lick-icon.png?OSSAccessKeyId=LTAI4FgBUrXGJxQu8ytjBGxo&Expires=1584017781&Signature=rvL8OkD6faD6tVc4RPUF%2BN7xc%2F0%3D" />
+								<view class="like-icon" @tap="likeBtn({{item}},{{index}})">
+									<image wx:if="{{item.indicate.like}}" src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/lick-icon-active.png?v=201212271218" />
+									<image wx:else src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/lick-icon.png" />
 								</view>
 								<view class="like-icon">
-									<image wx:if="{{item.indicate.comment}}" src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/comment-icon-active.png?OSSAccessKeyId=LTAI4FgBUrXGJxQu8ytjBGxo&Expires=1584017516&Signature=LSJ2Wu%2FNqW9U8fz6acASy7vSckE%3D" />
-									<image wx:else src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/comment-icon.png?OSSAccessKeyId=LTAI4FgBUrXGJxQu8ytjBGxo&Expires=1584017480&Signature=8w4ew86NtaeODBYXFBn%2BCYPDOHE%3D" />
+									<image src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/comment-icon.png?v=201212271218" />
 								</view>
 								<view class="like-icon">
-									<image wx:if="{{item.indicate.like}}" src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/lick-icon.png?OSSAccessKeyId=LTAI4FgBUrXGJxQu8ytjBGxo&Expires=1584014195&Signature=N3LEfpQcH8u3k29NMCQGaha2I0Q%3D" />
-									<image wx:else src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/lick-icon.png?OSSAccessKeyId=LTAI4FgBUrXGJxQu8ytjBGxo&Expires=1584014195&Signature=N3LEfpQcH8u3k29NMCQGaha2I0Q%3D" />
+									<image src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/icon/share-icon.png?v=201212271218" />
 								</view>
 							</view>
-						</view>
+						</view> 
 						<!-- 发表文章 -->
 						<view class="article">
-							美文网汇集以爱情，亲情，友情，人生为主题的伤感情感美文网站，内含经典美文，哲理美文，伤感励志等美文欣赏，提供短篇故事，心情随笔日记，优美散文精选，现代诗歌大全，表白情书范文，好词好句好段摘
+							<view class="title">美文网汇集以爱情，亲情，友情，人</view>
+							<view class="essay">美文网汇集以爱情，亲情，友情，人生为主题的伤感情感美文网站，内含经典美文，哲理美文，伤感励志等美文欣赏，提供短篇故事，心情随笔日记，优美散文精选，现代诗歌大全，表白情书范文，好词好句好段摘</view>
+							<text class="open">展开</text>
 						</view>
 						<!-- 发布手机 -->
-						<view></view>
+						<view class="cell-phone">Leica M6</view>
 						<!-- 携带话题 打卡地点 -->
-						<view></view>
+						<view class="label-box">
+							<text class="label-text">迷人打卡地</text>
+							<text class="label-text">北国的雪景</text>
+							<text class="label-text">东方明珠</text>
+							<text class="label-address">丹麦</text>
+						</view>
 						<!-- 发表评论 -->
-						<view></view>
+						<view class="comment-list">
+							<view class="list-num">共3条评论</view>
+							<view class="li">
+								<view class="name">2018</view>
+								<view class="desc">内容的描述描述描述描述内容的描述描述描述描述内容的描述描述描述描述内容的描述描述描述描述内容的描述描述描述描述</view>
+							</view>
+						</view>
+						<view class="input-box">
+							<input type="text" placeholder="喜欢就评论告诉TA~" />
+						</view>
 					</view>
 				</view>
 			</block>
 		</view>
 	</view>
 </template>
-
+ 
 <script>
 	import wepy from 'wepy'
 	import Api from '../services/api/index'
 	import appConfig from '../common/app_config'
 	import appData from '../common/appData'
 
+	import globalMixin from '../mixins/index';
+	import globalMixinShare from '../mixins/share';
 	import * as common from '../common/common';
-	import globalMixin from '../mixins/index'
 	// 时间处理中心
 	// 组件
 	import getuserinfo from '../services/getuserinfo'
@@ -88,6 +103,9 @@
 				headimgurl:"https://medelaoss.eintone.com/weixinheadimgurl/oRhel5OXwFNvgd1KiV8c4RkPQ0Dg.jpg",
 				nickname:'2018',
 				issue_time:"26分钟",
+				attention:{
+					show:0
+				},
 				indicate:{
 					likes:[{
 						headimgurl:"https://medelaoss.eintone.com/weixinheadimgurl/oRhel5OXwFNvgd1KiV8c4RkPQ0Dg.jpg",
@@ -96,13 +114,34 @@
 					},{
 						headimgurl:"https://medelaoss.eintone.com/weixinheadimgurl/oRhel5OXwFNvgd1KiV8c4RkPQ0Dg.jpg",
 					}],
-					like:0,
-					comment:0,
+					like:0
 				},
 				bannerImg:[{
-					img_url:'http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/banner-img-1.jpg?OSSAccessKeyId=LTAI4FgBUrXGJxQu8ytjBGxo&Expires=27132904181&Signature=%2Bdq6HnbabTnEVTMNZXe5rU%2B4ABs%3D'
+					img_url:'http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/banner-img-1.jpg'
 				},{
-					img_url:'http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/banner-img-1.jpg?OSSAccessKeyId=LTAI4FgBUrXGJxQu8ytjBGxo&Expires=27132904181&Signature=%2Bdq6HnbabTnEVTMNZXe5rU%2B4ABs%3D'
+					img_url:'http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/banner-img-1.jpg'
+				}]
+			},{
+				headimgurl:"https://medelaoss.eintone.com/weixinheadimgurl/oRhel5OXwFNvgd1KiV8c4RkPQ0Dg.jpg",
+				nickname:'2018',
+				issue_time:"26分钟",
+				attention:{
+					show:1
+				},
+				indicate:{
+					likes:[{
+						headimgurl:"https://medelaoss.eintone.com/weixinheadimgurl/oRhel5OXwFNvgd1KiV8c4RkPQ0Dg.jpg",
+					},{
+						headimgurl:"https://medelaoss.eintone.com/weixinheadimgurl/oRhel5OXwFNvgd1KiV8c4RkPQ0Dg.jpg",
+					},{
+						headimgurl:"https://medelaoss.eintone.com/weixinheadimgurl/oRhel5OXwFNvgd1KiV8c4RkPQ0Dg.jpg",
+					}],
+					like:1
+				},
+				bannerImg:[{
+					img_url:'http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/banner-img-1.jpg'
+				},{
+					img_url:'http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/banner-img-1.jpg'
 				}]
 			}]
 		}
@@ -111,13 +150,34 @@
 		}
 
 		components = {
-			head
+			head,
+
 		}
 
-		mixins = [globalMixin]
+    mixins = [globalMixin, globalMixinShare];
 
 		methods = {
-			
+			/**用户右上角点击 更多 */
+			userMore(item){
+				if(item.attention.show){
+					var itemList = ['取消关注', '投诉'];
+				}else{
+					var itemList = ['关注', '投诉'];
+				}
+				wx.showActionSheet({
+					itemList: itemList,
+					success (res) {
+						console.log(res.tapIndex)
+					},
+					fail (res) {
+						console.log(res.errMsg)
+					}
+				})
+			},
+			likeBtn(item,index){
+				this.msgList[index].indicate.like = 1;
+				this.$apply()
+			}
 		}
 		
 		onLoad(){
@@ -135,6 +195,7 @@
 	background: #fff;
 	.page-content{
 		.user-module{
+			padding-bottom: 20rpx;box-sizing:border-box;
 			/**头部 */
 			.user-module-top{
 				width: 100%;height: 100rpx;
@@ -157,7 +218,7 @@
 				}
 				.user-module-top-more{
 					width: 50rpx;height: 50rpx;
-					background:url(http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/more.png?OSSAccessKeyId=LTAI4FgBUrXGJxQu8ytjBGxo&Expires=1603267786&Signature=pzh7l%2Fe%2Fz6enZUow3jurzmlvGak%3D) center center no-repeat;
+					background:url(http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/index/more.png?v=201212271218) center center no-repeat;
 					background-size: cover;
 				}
 			}
@@ -176,7 +237,7 @@
 			}
 			/**其他指示 */
 			.user-module-indicate{
-				padding:12rpx 30rpx;box-sizing: border-box;
+				padding:12rpx 34rpx;box-sizing: border-box;
 				.user-module-indicate-top{
 					display: flex;justify-content: space-between;align-items: center;
 					.dz-user{
@@ -206,7 +267,100 @@
 					}
 				}
 				.article{
-					font-size: 12px;color: #000;
+					padding: 2px 0;box-sizing: border-box;position: relative;
+					.title{
+						font-size: 14px;color: #000;font-weight: bold;
+						text-overflow:ellipsis;overflow: hidden;
+						white-space: normal;  
+						display:-webkit-box;  
+						-webkit-box-orient:vertical;  
+						-webkit-line-clamp:2;/*规定最多显示两行*/ 
+					}
+					.essay{
+						width: 650rpx;
+						font-size: 12px;color: #464547;overflow: hidden;
+						text-overflow:clip ;  
+						white-space: normal;  
+						display:-webkit-box;  
+						-webkit-box-orient:vertical;  
+						-webkit-line-clamp:2;/*规定最多显示两行*/ 
+					}
+					.open{
+						position: absolute;right: 2pxpx;bottom: 1px;
+						font-size: 10px;color: #999;
+					}
+				}
+				.cell-phone{
+					font-size: 12px;color: #000;font-weight: bold;
+					padding: 2px 0;box-sizing: border-box;
+				}
+				.label-box{
+					padding: 2px 0;box-sizing: border-box;
+					display: flex;justify-content: flex-start;
+					flex-wrap: wrap;flex:1;
+					>text{
+						height: 50rpx;line-height: 50rpx;
+						padding-left: 50rpx;padding-right:25rpx;
+						text-align: left;box-sizing: border-box;
+						font-size: 12px;color: #f58220;
+						border-radius: 25rpx;background: #fcf7f1;
+						margin-right: 20rpx;margin-bottom: 4px;
+						position: relative;
+						&::before{
+							position: absolute;top: 50%;left: 12rpx;
+							transform: translateY(-50%);
+							width: 32rpx;height: 32rpx;
+							display: block;content: ''; 
+						}
+					}
+					.label-text{
+						&::before{
+							background: url(http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/icon/top-icon-3.png?v=201212271218) center center no-repeat;
+							background-size: cover;
+						}	
+					}
+					.label-address{
+						&::before{
+							background: url(http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/icon/address-icon.png?v=201212271218) center center no-repeat;
+							background-size: cover;
+						}	
+					}
+					
+				}
+				.comment-list{
+					display: flex;justify-content: flex-start;
+					flex-direction: column;flex:1;
+					padding: 4px;box-sizing:border-box;
+					.list-num{
+						font-size: 10px;color: #ccc;
+					}
+					.li{
+						display: flex;justify-content: flex-start;
+						.name{
+							font-size: 12px;color: #000;font-weight: bold;
+							margin-right: 4px;
+						}
+						.desc{
+							width: 100%;
+							font-size: 12px;color: #000;overflow: hidden;
+							text-overflow:clip ;  
+							white-space: normal;  
+							display:-webkit-box;  
+							-webkit-box-orient:vertical;  
+							-webkit-line-clamp:1;/*规定最多显示两行*/ 
+						}
+					}
+				}
+				.input-box{
+					margin-top: 12rpx;
+					border-radius: 30rpx;
+					border:1px solid #cccccc;
+					input{
+						font-size: 12px;color: #000;
+						display: block;height: 60rpx;
+						text-align: left;line-height: 60rpx;
+						padding: 0 30rpx;block-size: border-box;
+					}
 				}
 			}
 		}
