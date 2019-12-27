@@ -1,0 +1,18 @@
+<template>
+    <view class='loadmore'>
+        <slot name="content">正在加载更多…</slot> 
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+    export default class LoadMore extends wepy.component {
+        
+    }
+</script>
+
+<style lang='less'>
+    .loadmore{
+        font-size: 12px;text-align: center;padding: 20rpx;
+    }
+</style>

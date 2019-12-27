@@ -1,0 +1,61 @@
+<template>
+    <view class="container" id="webview">
+        <web-view src="{{webviewSrc}}" bindmessage="bindmessage"></web-view>
+    </view>
+</template>
+    
+<script>
+import wepy from 'wepy'
+import Api from '../services/api/index'
+import globalMixin from '../mixins/index'
+import appConfig from '../common/app_config'
+export default class Webview extends wepy.page {
+    config = {
+    
+    }
+    components = {
+    
+    }
+
+    data = {
+        webviewSrc: '' 
+    }
+
+    computed = {
+    
+    }
+
+    methods = {
+        bindmessage(e){
+            let data = e.detail.data||[]
+                data = data[0]||{}
+            let categoryID = data.categoryID
+            appConfig.categoryID = categoryID
+            console.log('appConfig.categoryID',appConfig.categoryID, e.detail)
+        }
+    }
+
+    events = {
+    
+    }
+
+    mixins = [globalMixin]
+
+    onLoad(options){
+        console.log('----------')
+        let userInfo = wx.getStorageSync('userInfo');
+        let link = decodeURIComponent(options.link)
+        console.log(options,link)
+        if( link.indexOf("?")!=-1 ){
+            this.webviewSrc = link+"&token="+userInfo.token+"&appid="+appConfig.appid
+        }else{
+            this.webviewSrc = link+"?token="+userInfo.token+"&appid="+appConfig.appid
+        } 
+    }    
+}
+</script>
+<style lang="less">
+    #webview{
+        
+    }
+</style>

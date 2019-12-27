@@ -1,0 +1,30 @@
+<template>
+    <view class='nodata-box'>
+        <view class="nodata-icon"></view>
+        <view class="nodata-text">
+            <slot name="content">暂无数据内容！</slot>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+    export default class Nodata extends wepy.component {
+        
+    }
+</script>
+
+<style lang='less'>
+    .nodata-box{
+        text-align: center;padding:80rpx 0;
+        .nodata-icon{
+            &:before{
+                content: '';width: 180rpx;height: 180rpx;display: inline-block;
+                background: url("http://qiaohuoss.eintone.com/190122fg0365/weapp/static/nodata.png") center no-repeat;background-size: cover;
+            }
+        }
+        .nodata-text{
+            font-size: 12px;text-align: center;padding: 10rpx 0 20rpx;color:#959595;
+        }
+    }
+</style>

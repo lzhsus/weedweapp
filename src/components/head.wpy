@@ -1,0 +1,84 @@
+
+<template>
+    <view id='header'>
+		<view class='address' bindtap='addressFn'>
+			<image src='https://1434253600.xyz/static/images/index/address-icon.png' mode='widthFix'/>
+			{{province}}
+		</view>
+		<view class='search'>
+			<input type='text' placeholder='单反相机' bindconfirm='bindconfirm'></input>
+		</view>
+		<view class='service' bindtap='makePhoneCall'>
+            <image src='https://1434253600.xyz/static/images/index/server-kf-icon.png' mode='widthFix'></image>
+            客服
+            <button open-type="contact" bindcontact="bindcontact" show-message-card="true"></button>
+        </view>
+	</view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import Api from '../services/api/index'
+  import MergeImage from '../services/mergeImage'
+  import appConfig from '../common/app_config'
+
+  export default class Head extends wepy.component {
+    props = {
+
+    }
+    data = {
+      
+        province: '上海市'
+    }
+    components = {
+
+    }
+    methods = {
+        bindcontact(e){
+            console.log(e)
+        }
+    }
+    events = {
+      
+    }
+  }
+</script>
+
+<style type="less">
+#header{
+    width: 100%;height:96rpx;background: #fbd451; padding:0 20rpx;
+    display: flex;justify-content: space-around;align-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    .address{
+        width: 130rpx;height: 96rpx;font-size: 12PX;
+        line-height: 96rpx;color: #333;
+        box-sizing: border-box;
+        display: flex;align-items: center;justify-content: space-around;align-content: left;
+        image{
+            display: block;width: 40rpx;
+        }
+    }
+    .service{
+        width: 130rpx;height: 96rpx;font-size: 12PX;
+        line-height: 96rpx;color: #333;
+        box-sizing: border-box;
+        display: flex;align-items: center;justify-content: space-around;align-content: left;
+        position: relative;
+        image{
+            display: block;width: 40rpx;
+        }
+        button{
+            position: absolute;top: 0;left: 0;
+            width: 100%;height: 100%;
+            opacity: 0;
+        }
+    }
+    .search{
+        width: 430rpx;height: 64rpx;border-radius: 32rpx;overflow: hidden;
+        input{
+            width: 100%;background: #fff;height: 64rpx;padding-left: 30rpx;
+            font-size: 14PX;
+        }
+    }
+}
+</style>

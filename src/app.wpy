@@ -1,0 +1,177 @@
+<style lang="less">
+page {
+	height: 100%;width: 100%;background-color: #f2f2f2;
+}
+.img100{
+	width: 100%;display: block;height: 100%;
+}
+.nodata{
+	text-align: center;font-size: 22rpx;color: #949494;overflow: hidden;padding:60rpx 0;display: block;
+}
+.campaign-container{
+	background:#ffc80f url("http://171114fg0248.eintone.com/weapp/static/campaign/bg-02.jpg") no-repeat;background-size: 100% auto;
+	width: 100%;display: block;min-height: 100%;
+}
+// 评论
+.comment-pop{
+	position: fixed;width: 100%;top: 0;left: 0;height:100%;background-color: rgba(0, 0, 0, 0.7);
+	.pop-close-bg{
+		position: absolute;left:0;top:0;width: 100%;height: 100%;
+	}
+	.comment-main{
+		width: 505rpx;background-color: #fff;border-radius: 15rpx;padding: 50rpx;
+		left: 50%;top: 50%;transform: translate(-50%,-50%);position: absolute;
+		&:after{
+			width: 191rpx;height:286rpx;content: "";position: absolute;right: -10rpx;top: -80rpx;
+			background: url("http://171114fg0248.eintone.com/weapp/static/productdetail/icon-02.png") no-repeat;background-size: 100% auto;
+		}
+		.submit{
+			width: 380rpx;height: 75rpx;line-height: 75rpx;color: #fff;font-size: 24rpx;color: #fff;margin:0 auto;border-radius: 15rpx;background: #ffc607;text-align: center;
+			&::after{
+				border:0;
+			}
+		}
+		.ipt{
+			border: 1px solid #ffc607;height: 308rpx;border-radius: 15rpx;margin: 50rpx 0;padding: 20rpx;
+			.textarea{
+				width: 100%;height: 100%;font-size: 24rpx;
+			}
+		}
+		.tit{
+			font-size: 30rpx;color: #f08200;line-height: 1.4;display: block;
+			text{
+				font-size: 20rpx;
+			}
+		}
+	}
+}
+
+// 活动弹层
+.campaign-pop{
+	position: fixed;width: 100%;top: 0;left: 0;height:100%;background-color: rgba(0, 0, 0, 0.7);z-index: 3;
+	.campaign-pop-mian{
+		width: 590rpx;background-color: #fff;border-radius: 15rpx;min-height: 300rpx;
+		left: 50%;top: 50%;transform: translate(-50%,-50%);position: absolute;
+		.close{
+			width: 71rpx;height:71rpx;position: absolute;right: -25rpx;top: -25rpx;
+			background: url("http://171114fg0248.eintone.com/weapp/static/campaign/close.png") no-repeat;background-size: 100% auto;
+		}
+		.btn{
+			width: 410rpx;height: 70rpx;line-height: 70rpx;text-align: center;color:#fff;font-size: 24rpx;background: #ffc607;border-radius: 100px;margin:0 auto 55rpx;padding:0;
+			&.disabled{
+				background-color: #ababab; 
+			}
+			&:after{
+				border:0;
+			}
+		}
+	}
+}
+
+// 数据加载中
+.data-load{
+	width: 100%;clear: both;text-align: center;font-size: 20rpx;color: #969696;padding:20rpx 0;background: #fff;border-radius: 10rpx;display: flex;justify-content:center;align-items:center;margin:10rpx 0;
+	&::before{
+		width: 32rpx;height: 32rpx;background: url('data:image/gif;base64,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');
+		background-size: 100% auto;display: inline-block;content: "";margin-right:10rpx;
+	}
+}
+page{
+    width: 100%;
+}
+.page-container{
+    width: 100%;height:100%;display: flex;flex-direction: column;
+    .page-container-content{
+        flex:1;display: flex;flex-direction: column;position: relative;
+    }
+}
+
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+import Promise from 'promise-polyfill'
+
+import sceneCd from './services/scene'
+import moment from "moment"; 
+import 'moment/locale/zh-cn'
+moment.locale("zh-cn");
+
+export default class extends wepy.app { 
+	config = {
+		pages: [
+			'pages/index',
+			'pages/webview'
+		],
+		window: {
+			backgroundTextStyle: 'dark',
+			navigationBarBackgroundColor: '#000000',
+			navigationBarTitleText: '',//租赁商城
+			navigationBarTextStyle: 'white'
+		},
+	}
+
+	globalData = {
+		userInfo: null
+	}
+
+	constructor () {
+		super()
+		this.use('requestfix')
+		this.use('promisify');
+	}
+	
+	onLaunch(opt) {
+
+		opt.scene=sceneCd(opt.scene)
+		console.log('app',opt)
+	}
+
+	sleep (s) {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve('promise resolved')
+			}, s * 1000)
+		})
+	}
+
+	getUserInfo(cb) {
+		var that=this
+		if (this.globalData.userInfo) {
+			return this.globalData.userInfo
+		}
+		we.getUserInfo({
+			success (res) {
+				that.globalData.userInfo = res.userInfo
+				cb && cb(res.userInfo)
+			}
+		})
+	}
+	onShow(){
+		const updateManager = wx.getUpdateManager()
+
+		updateManager.onCheckForUpdate(function (res) {
+		// 请求完新版本信息的回调
+		console.log(res.hasUpdate)
+		})
+
+		updateManager.onUpdateReady(function () {
+		wx.showModal({
+			title: '更新提示',
+			content: '新版本已经准备好，是否重启应用？',
+			success: function (res) {
+			if (res.confirm) {
+				// 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+				updateManager.applyUpdate()
+			}
+			}
+		})
+		})
+
+		updateManager.onUpdateFailed(function () {
+		// 新版本下载失败
+		})
+	}
+}
+</script>
