@@ -2,8 +2,16 @@
     <view class="addedit" index="addedit">
         <view class="addedit-content">
             <!-- 选择图片 -->
-            <view class="select-image ">
-                <view></view>
+            <view class="skill-sequence-panel-content-wrapper"> 
+                <!--横向滚动-->
+                <scroll-view class="skill-sequence-panel-content" scroll-x>
+                    <view class="skill-sequence-skill-wrapper" wx:for="{{imageList}}" wx:key @tap='chooseImage({{item}},{{index}})'>
+                        <image src="{{item.url}}" mode="scaleToFill"/>
+                    </view>
+                    <view class="skill-sequence-skill-wrapper" @tap='chooseImage(-1)'>
+                        <image src="http://lzhsus.oss-cn-beijing.aliyuncs.com/weedweapp/static/icon/add-photo.png?v=201212271218)" mode="scaleToFill"/>
+                    </view>
+                </scroll-view>
             </view>
             <!-- 标题 -->
             <view></view>
@@ -13,6 +21,12 @@
             <view></view>
             <!-- 定位 -->
             <view></view>
+            <!-- <view @tap="wxloginBtn">微信一键登录 -->
+            <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信一键登录</button>
+            <button open-type="getUserInfo" bindgetuserinfo="bindgetuserinfo">获取用户信息</button>
+
+                    <!-- </view> -->
+            <view @tap="submitBtn">发布</view>
         </view>
     </view>
 </template>
@@ -26,13 +40,16 @@ import appData from '../common/appData';
 import globalMixin from '../mixins/index';
 import globalMixinShare from '../mixins/share';
 import * as common from '../common/common';
+import { uploadFile } from '../services/uploadfile'
 // 时间处理中心
 // 组件
 import getuserinfo from '../services/getuserinfo';
 import head from '../components/head';
 
 export default class Addedit extends wepy.page {
-    data = {};
+    data = {
+        imageList:[]
+    };
 
     config = {};
  
@@ -42,19 +59,134 @@ export default class Addedit extends wepy.page {
 
     mixins = [globalMixin, globalMixinShare];
 
-    methods = {};
-
+    methods = {
+        // 选择图片
+        chooseImage(item,index){
+            var _this = this;
+            if( item == -1 ){
+                if(this.imageList.length==9){
+                    wx.showToast({
+                        title:'最多添加9张图片！',
+                        icon:'none'
+                    })
+                    return;
+                }
+                this.chooseImageFn(-1);
+            }else{
+                // 编辑
+                wx.showActionSheet({
+                    itemList: ['再次编辑', '删除图片'],
+                    success (res) {
+                        if( res.tapIndex ==0){
+                            _this.chooseImageFn(index);
+                        }else if(res.tapIndex == 1){
+                            var imageList=_this.imageList;
+                            imageList.splice(index,1);
+                            _this.imageList=imageList;
+                        }
+                        _this.$apply();
+                    },
+                    fail (res) {
+                        console.log(res.errMsg)
+                    }
+                })
+            }
+        }, 
+        // 获取电话号码
+        getPhoneNumber(e){
+            console.log(e)
+            if(e.detail.errMsg=='getPhoneNumber:ok'){
+                Api.loginPhonenumber({
+                    encryptedData: e.detail.encryptedData,
+                    iv: e.detail.iv,
+                    scene:this.scene||'',
+                    session_key:'hfRiZXjxI+OfQPUMLcf/hQ=='
+                }).then(res=>{
+                    this.phonenum = res.result.phoneNumber
+                    this.$apply();
+                })
+            }else{
+                wx.showToast({
+                    title: '您未填写手机号!',
+                    icon: 'none',
+                    duration: 5000
+                })
+            }
+            
+        },
+        bindgetuserinfo(e){
+			getuserinfo(e, (res)=>{       
+				if( !appConfig.headimgurl ){
+					wx.showModal({
+						content: '头像获取失败！', 
+						showCancel: false
+					})
+					return;
+				}
+				console.log(res)
+			})
+		},
+        async submitBtn(){
+            console.log(this.imageList)
+            var urls=await uploadFile(this.imageList,"")
+            console.log('urls',urls)
+            
+            //  const data = JSON.parse(res.data)
+            //                     var img=data.data[0]
+        }
+    };
+    chooseImageFn(index){
+        var _this=this;
+        var count = 9-_this.imageList.length;
+        wx.chooseImage({
+            count: index==-1?count:1,
+            sizeType: ['compressed'],
+            sourceType: ['album', 'camera'],
+            success: (res)=> {
+                // tempFilePath可以作为img标签的src属性显示图片
+                let tempFilePaths = res.tempFilePaths
+                let len = tempFilePaths.length
+                if( len ){
+                    if( index == -1 ){
+                        tempFilePaths.forEach((item,i)=>{
+                            _this.imageList.push({
+                                type:'images',
+                                url:item,
+                            }) 
+                        })
+                    }else{
+                        _this.imageList[index].url = tempFilePaths[0];
+                    }
+                }
+                _this.$apply();
+            }
+        })
+    }
     onLoad() {}
     onShow() {}
 }
 </script>
 
 <style lang="less">
-#addedit{
-    .addedit-content{
-
+/*scroll-view外层*/
+.skill-sequence-panel-content-wrapper{
+    position: relative;height: 190rpx;display: block;
+    white-space:nowrap;
+    /*scroll-view内层*/
+    .skill-sequence-skill-wrapper{
+        margin-left: 2px;
+        display: inline-block;
+        image{
+            width: 190rpx;height: 190rpx;display: block;
+        }
     }
 }
+#addedit{
+    .addedit-content{
+        
+    }
+}
+
 </style>
 
 

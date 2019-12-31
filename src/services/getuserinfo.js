@@ -9,7 +9,7 @@ export default async function(e){
     if( moment(Date.now()).valueOf()>=checkinfoTime ){
         userInfo = null
         wx.removeStorageSync('user_info')
-    }
+    };
     // 拒绝授权
     if( !detail.encryptedData ){
         wx.showModal({
@@ -17,28 +17,31 @@ export default async function(e){
             content: '请允许获取用户信息！'
         })
         return
-    }
+    };
     let res = await checkSession();
     let data = {
-        encryptedData: detail.encryptedData,
+        encryptedData: decodeURIComponent(detail.encryptedData),
         iv: detail.iv,
         rawData: detail.rawData,
         signature: detail.signature
-    }
+    };
     console.log('****',data)
     return new Promise((resolve, reject)=>{
         if( !userInfo ){
-            userInfo = e.detail.userInfo
-            userInfo.headimgurl = userInfo.avatarUrl
-            console.log('----',api)
+            userInfo = e.detail.userInfo;
+            userInfo.headimgurl = userInfo.avatarUrl;
+            
+            data.session_key = wx.getStorageSync('userInfo').session_key;
+            data.openid = wx.getStorageSync('userInfo').openid;
             api.userInfo(data).then((res)=>{ 
                 if( res.success ){
                     userInfo.unionid=res.result.unionid
                     userInfo.headimgurl=res.result.headimgurl
                     userInfo.nickname=res.result.nickname
+                    wx.setStorageSync('userInfo', userInfo)
                     wx.setStorageSync(appConfig.envVersion+'user_info', userInfo)
                     wx.setStorageSync(appConfig.envVersion+'checkinfoTime', moment(Date.now()).valueOf()+2*60*1000)
-                    resolve(userInfo)
+                    resolve(userInfo);
                 }else if( res.msg ){
                     wx.showModal({
                         content: res.msg,
@@ -48,7 +51,7 @@ export default async function(e){
                 }
             })
         }else{
-            resolve(userInfo)
+            resolve(userInfo);
         }
     })
 }

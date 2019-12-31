@@ -186,7 +186,12 @@ api.orderPay=function(data, isShowLoading=true){
 api.pay=function(data, isShowLoading=true){
     return apiRequest("api/get/pay/pay",data,"GET",isShowLoading);
 }
-
+/**
+ * 2019-12-30
+ */
+api.text = function (data, isShowLoading=true){
+    return apiRequest("api/text",data,"GET",isShowLoading);
+}
 
 export default api;
 

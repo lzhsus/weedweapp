@@ -38,4 +38,5 @@ globalApi.loginPhonenumber=async function(data){
     data.session_key= res.result.session_key;
     return request('http://127.0.0.1:3001/api/post/wx/loginPhonenumber', data, 'POST', true, header)
 }
+
 export {globalApi}

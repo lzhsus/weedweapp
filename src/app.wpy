@@ -123,6 +123,11 @@ export default class extends wepy.app {
 				"iconPath":"static/tabBar-icon01.png",
 				"selectedIconPath":"static/tabBar-icon01-2.png"
 			}, {
+				"pagePath": "pages/addedit",
+				"text": "发布",
+				"iconPath":"static/tabBar-icon06.png",
+				"selectedIconPath":"static/tabBar-icon06-2.png"
+			}, {
 				"pagePath": "pages/my",
 				"text": "个人中心",
 				"iconPath":"static/tabBar-icon02.png",
@@ -130,7 +135,7 @@ export default class extends wepy.app {
 			}] 
 		}
 	}
-
+ 
 	globalData = {
 		userInfo: null
 	}

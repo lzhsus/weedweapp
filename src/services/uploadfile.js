@@ -1,4 +1,8 @@
 import Api from './api/index'
+
+import appConfig from '../common/app_config'
+import * as common from '../common/common';
+
 let uploadFile = async (file,dir='')=> {
     return new Promise(function (resolve, reject) { 
         Api.create_folder({
@@ -10,7 +14,7 @@ let uploadFile = async (file,dir='')=> {
                 console.log(ossKey)       
                 let promiseAll = []
                 file.forEach((obj,index)=>{
-                    promiseAll.push(wxUploadFile(file[index], ossKey))
+                    promiseAll.push(wxUploadFile(file[index].url, ossKey))
                 })
                 Promise.all(promiseAll).then((fileURL)=> {
                     resolve(fileURL)

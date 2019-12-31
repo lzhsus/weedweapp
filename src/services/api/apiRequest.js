@@ -33,7 +33,9 @@ export default async function apiRequest(url, params={}, method="POST", isShowLo
     // url = url.split("?");
     // url = url[0]+'?'+common.parseParams(urlParams);
     // console.log('url',url)
-    params.token=userInfo.token||''
+    if(userInfo){
+        params.token=userInfo.token||''
+    }
     params.appid=appConfig.appid
     loginPromis=null
     appConfig.appUserinfo = userInfo

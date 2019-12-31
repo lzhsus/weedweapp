@@ -6,7 +6,7 @@ export default{
     ossPath:'https://lzhsus.oss-cn-beijing.aliyuncs.com/',
     apiPath:'',
     isTest:true,
-    appid: 'wx945fa96497eecf6a',  
+    appid: 'wxf99aeedcb92d7b0e',  
     tabBarLink: ['/pages/index','/pages/category','/pages/cart','/pages/activity','/pages/my'],
     tabPath:[]
 }
